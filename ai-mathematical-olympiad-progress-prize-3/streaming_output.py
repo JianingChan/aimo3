@@ -28,6 +28,7 @@ async def stream_response(engine: AsyncLLM, prompt: str, request_id: str) -> Non
         output_kind=RequestOutputKind.DELTA,  # Get only new tokens each iteration
     )
 
+    full_answer = ""
     try:
         # Stream tokens from AsyncLLM
         async for output in engine.generate(
@@ -39,7 +40,7 @@ async def stream_response(engine: AsyncLLM, prompt: str, request_id: str) -> Non
                 new_text = completion.text
                 if new_text:
                     print(new_text, end="", flush=True)
-
+                    full_answer += new_text
             # Check if generation is finished
             if output.finished:
                 print("\n✅ Generation complete!")

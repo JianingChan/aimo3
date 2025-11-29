@@ -2,7 +2,10 @@
 def call_vllm_api(
     system_instruction: str | None,
     contents: list,
-    verbose: bool = True
+    verbose: bool = True,
+    engine: AsyncLLM, 
+    prompt: str, 
+    request_id: str,
 ) -> str | None:
     """
     使用 SDK 调用 Gemini API，启用流式传输和思考过程。
